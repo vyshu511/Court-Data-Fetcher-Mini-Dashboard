@@ -148,7 +148,7 @@ Watch the step-by-step screen capture on YouTube:
 
 <div align="center">
 
-[![Email](https://img.shields.io/badge/Email-0vyshnavimanam23@gmail.com-red?style=flat\&logo=gmail)](mailto:vyshnavimanam23@gmail.com)
+[![Email](https://img.shields.io/badge/Email-vyshnavimanam23@gmail.com-red?style=flat\&logo=gmail)](mailto:vyshnavimanam23@gmail.com)
 
 [![GitHub](https://img.shields.io/badge/GitHub-vyshu511-black?style=flat\&logo=github)](https://github.com/vyshu511)
 
