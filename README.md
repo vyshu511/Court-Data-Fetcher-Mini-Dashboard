@@ -6,7 +6,7 @@ Here’s the updated version with your details integrated:
 
 # 🏛️ Court-Data Fetcher & Mini-Dashboard
 
-[![Python CI](https://github.com/vyshu511/Court-Data-Fetcher-Mini-Dashboard/actions/workflows/python-ci.yml/badge.svg)](https://github.com/vyshu511/Court-Data-Fetcher-Mini-Dashboard/actions/workflows/python-ci.yml)
+
 
 **Court-Data Fetcher & Mini-Dashboard** is a Python + Flask-based web application that allows users to fetch **Delhi High Court** case details by providing the Case Type, Case Number, and Filing Year.
 
