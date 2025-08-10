@@ -1,133 +1,162 @@
-Court Data Fetcher & Mini Dashboard
-📌 Overview
-The Court Data Fetcher & Mini Dashboard is a Python + Flask-based web application that allows users to search for legal case details from Indian court portals, extract key metadata, and display them in an easy-to-read dashboard.
-It is designed for automation, efficiency, and simplicity, helping legal professionals, researchers, and interns quickly gather case-related data.
+Got it — you want this **Court-Data Fetcher & Mini-Dashboard README** rewritten with *your* name, GitHub, LinkedIn, and other details instead of the original author’s, keeping it professional.
 
-🚀 Features
-Case Search Form: Input case type, case number, and filing year.
+Here’s the updated version with your details integrated:
 
-Web Scraping Integration: Fetches case details from Indian eCourts/District Court portals.
+---
 
-Metadata Extraction:
+# 🏛️ Court-Data Fetcher & Mini-Dashboard
 
-Party names
+[![Python CI](https://github.com/vyshu511/Court-Data-Fetcher-Mini-Dashboard/actions/workflows/python-ci.yml/badge.svg)](https://github.com/vyshu511/Court-Data-Fetcher-Mini-Dashboard/actions/workflows/python-ci.yml)
 
-Filing dates
+**Court-Data Fetcher & Mini-Dashboard** is a Python + Flask-based web application that allows users to fetch **Delhi High Court** case details by providing the Case Type, Case Number, and Filing Year.
 
-Order PDF links
+The app:
 
-Query Logging:
+* Provides a simple web UI for input
+* Programmatically fetches case details from the **Delhi High Court public portal**
+* Auto-handles numeric CAPTCHA
+* Extracts **Parties’ Names**, **Filing & Next Hearing Dates**, and the **Most Recent Order/Judgment PDF**
+* Stores every query and raw HTML response in **MySQL** for auditing
+* Displays results in a clean dashboard with direct PDF download links
+* Handles invalid inputs and site downtime gracefully
 
-All searches stored in an SQL database (MySQL/SQLite).
+---
 
-User-Friendly Dashboard:
+## ⚖️ Court Chosen
 
-Displays results in tabular format.
+**Delhi High Court – Case Status (Case Type Wise)**
+🔗 [https://delhihighcourt.nic.in/app/get-case-type-status](https://delhihighcourt.nic.in/app/get-case-type-status)
 
-Clickable links for order PDFs.
+---
 
-CAPTCHA Handling Strategy documented for manual & automated workflows.
+## ⚙️ Setup Steps
 
-Responsive UI using HTML, CSS, and Bootstrap.
+Follow these steps to run this project locally:
 
-🛠️ Tech Stack
-Backend: Python, Flask
+### **1️⃣ Clone the Repository**
 
-Frontend: HTML, CSS, Bootstrap
+```bash
+git clone https://github.com/vyshu511/Court-Data-Fetcher-Mini-Dashboard.git
+cd Court-Data-Fetcher-Mini-Dashboard/court_data_fetcher
+```
 
-Database: MySQL / SQLite
+### **2️⃣ Create a Virtual Environment**
 
-Web Scraping: Requests, BeautifulSoup
+**Windows:**
 
-Other Tools: JSON, Logging
-
-📂 Project Structure
-php
-Copy
-Edit
-court-data-fetcher/
-│
-├── static/                # CSS, JS, and assets
-├── templates/             # HTML templates
-├── app.py                  # Main Flask application
-├── scraper.py              # Web scraping logic
-├── database.py             # DB connection and query logging
-├── config.py               # Configuration settings
-├── requirements.txt        # Python dependencies
-└── README.md               # Project documentation
-⚙️ Installation & Setup
-1️⃣ Clone the Repository
-bash
-Copy
-Edit
-git clone https://github.com/your-username/court-data-fetcher.git
-cd court-data-fetcher
-2️⃣ Create a Virtual Environment
-bash
-Copy
-Edit
+```bash
 python -m venv venv
-source venv/bin/activate   # For Linux/Mac
-venv\Scripts\activate      # For Windows
-3️⃣ Install Dependencies
-bash
-Copy
-Edit
+venv\Scripts\activate
+```
+
+**Linux / Mac:**
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### **3️⃣ Install Project Dependencies**
+
+```bash
+pip install --upgrade pip
 pip install -r requirements.txt
-4️⃣ Configure Database
-For MySQL, update config.py with:
+```
 
-python
-Copy
-Edit
-DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'your_password',
-    'database': 'court_data'
-}
-For SQLite, set:
+### **4️⃣ Setup MySQL Database**
 
-python
-Copy
-Edit
-DB_PATH = "court_data.db"
-5️⃣ Run the Application
-bash
-Copy
-Edit
-python scraper.py
-Access the app at http://127.0.0.1:5000
+```sql
+CREATE DATABASE court_data;
+USE court_data;
 
-📖 Usage
-Open the web application in a browser.
+CREATE TABLE queries (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    case_type VARCHAR(50),
+    case_number VARCHAR(50),
+    filing_year VARCHAR(10),
+    timestamp DATETIME,
+    raw_response LONGTEXT
+);
+```
 
-Enter case type, case number, and filing year.
+### **5️⃣ Run the Flask App**
 
-Click Search.
+```bash
+python app.py
+```
 
-View:
+Then open: **[http://127.0.0.1:5000](http://127.0.0.1:5000)**
 
-Case parties
+---
 
-Filing dates
+## 📦 Key Dependencies
 
-Order document links
+* Flask – Web framework for UI and routing
+* Selenium – Browser automation for fetching data
+* WebDriver Manager – Automatically manages ChromeDriver
+* BeautifulSoup4 – HTML parsing to extract case details
+* MySQL Connector – Save query logs in MySQL database
 
-All queries are stored in the database for later reference.
+---
 
-🧠 CAPTCHA Handling
-Some court portals require CAPTCHA verification.
+## 🔒 CAPTCHA Strategy
 
-Manual Approach: User solves CAPTCHA in the browser.
+The **Delhi High Court** case status page uses a **numeric text CAPTCHA**.
+Our script automatically handles this without manual input or OCR.
 
-Automated Approach: (Optional) Integrate with services like 2Captcha or OCR for automated solving.
+If in the future it changes to image-based CAPTCHA, solutions like **Tesseract OCR** or manual token entry can be implemented.
 
-📜 License
-This project is licensed under the MIT License – feel free to modify and use it.
+---
 
-👨‍💻 Author
-Developed by Vyshnavi Manam
-B.Tech Artificial Intelligence & Data Science
-GitHub: https://github.com/vyshu511
+## 📂 File Structure
+
+```
+Court-Data-Fetcher-Mini-Dashboard/
+├── .github/
+│   └── workflows/
+│       └── python-ci.yml
+├── court_data_fetcher/
+│   ├── static/images/
+│   │   ├── Court-Data Fetcher & Mini-Dashboard.gif
+│   │   ├── ui_home.png
+│   │   └── ui_result.png
+│   ├── templates/
+│   │   ├── index.html
+│   │   └── result.html
+│   ├── tests/test_app.py
+│   ├── app.py
+│   ├── scraper.py
+│   ├── db.py
+│   ├── config.py
+│   ├── requirements.txt
+│   └── Dockerfile
+├── Demo_Video_Link_of_Task_1.txt
+├── LICENSE
+└── README.md
+```
+
+---
+
+## 🎥 Demo Video
+
+Watch the step-by-step screen capture on YouTube:
+📺 https://drive.google.com/file/d/1GKRGXY_qCp3GIp-d1rKrXcGuVule3Qt_/view?usp=sharing
+
+---
+
+## 📫 Contact
+
+<div align="center">
+
+[![Email](https://img.shields.io/badge/Email-vyshunivi511%40gmail.com-red?style=flat\&logo=gmail)](mailto:vyshnavimanam23@gmail.com)
+
+[![GitHub](https://img.shields.io/badge/GitHub-vyshu511-black?style=flat\&logo=github)](https://github.com/vyshu511)
+
+</div>
+
+---
+
+## 📜 License
+
+MIT License © 2025 [Vyshnavi Manam](https://www.linkedin.com/in/vyshnavi-manam)
 
