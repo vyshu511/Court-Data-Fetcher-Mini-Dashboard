@@ -45,18 +45,26 @@ def save_query(case_type, case_number, filing_year, raw_response):
         print(" MySQL Insert Error:", e)
 
 #  Driver Setup 
+# Driver Setup 
 def fetch_case_details(case_type, case_number, filing_year):
     """Fetch case details including most recent PDF from Delhi High Court website"""
+
     options = Options()
+
+    # Render server settings
     options.add_argument("--headless=new")
-    options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
 
-# Case Fetching Logic
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    driver.get("https://delhihighcourt.nic.in/app/get-case-type-status")
+    # Chromium path in Render
+    options.binary_location = "/usr/bin/chromium"
+
+    driver = webdriver.Chrome(
+        service=Service(ChromeDriverManager().install()),
+        options=options
+    )
 
     try:
         # Step 1: Solve CAPTCHA
