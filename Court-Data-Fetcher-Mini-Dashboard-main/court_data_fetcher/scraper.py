@@ -26,23 +26,8 @@ DB_CONFIG = {
 app = Flask(__name__)
 # Save Query to Database
 def save_query(case_type, case_number, filing_year, raw_response):
-    """Save query details to MySQL database"""
-    try:
-        conn = mysql.connector.connect(**DB_CONFIG)
-        cursor = conn.cursor()
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-        cursor.execute("""
-            INSERT INTO queries (case_type, case_number, filing_year, timestamp, raw_response)
-            VALUES (%s, %s, %s, %s, %s)
-        """, (case_type, case_number, filing_year, timestamp, raw_response))
-
-        conn.commit()
-        cursor.close()
-        conn.close()
-        print(" Query log saved to MySQL.")
-    except Exception as e:
-        print(" MySQL Insert Error:", e)
+    print("Database disabled on Render deployment")
+    pass
 
 #  Driver Setup 
 # Driver Setup 
