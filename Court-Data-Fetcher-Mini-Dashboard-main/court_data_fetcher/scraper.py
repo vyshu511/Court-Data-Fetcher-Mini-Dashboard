@@ -44,12 +44,13 @@ def fetch_case_details(case_type, case_number, filing_year):
     options.add_argument("--window-size=1920,1080")
 
     # Chromium path in Render
-    options.binary_location = "/usr/bin/chromium"
-
+    # Create Chrome Driver
     driver = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()),
-        options=options
-    )
+    service=Service(ChromeDriverManager().install()),
+    options=options
+)
+
+
 
     try:
         # Step 1: Solve CAPTCHA
